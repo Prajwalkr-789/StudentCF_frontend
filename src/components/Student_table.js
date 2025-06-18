@@ -34,7 +34,7 @@ export default function StudentTable() {
   const fetchData = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/getAllStudentsShortInfo`
+        `${process.env.REACT_APP_BACKEND_URL}/api/getAllStudentsShortInfo`
       );
       if (res.status == 200) {
         setstudents(res.data);
