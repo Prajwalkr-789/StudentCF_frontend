@@ -6,6 +6,7 @@ import { Trophy, Target, TrendingUp, Calendar, Award, Brain, Sun, Moon } from "l
 import axios from 'axios'
 import { useParams } from "react-router-dom"
 import ProblemSolving from "./ProblemSolving"
+import { useToast } from "../Contexts/ToastContext"
 
 
 const solvedProblems = [
@@ -32,21 +33,42 @@ export default function StudentProfile() {
   const [contestdata , setcontestdata ] = useState(null)
   const [dateselected , setdateselected] = useState(30)
 
+const {showSuccess,showError,showInfo} = useToast()
+
   const {studentId} = useParams()
   console.log(studentId)
-  const fetchData = async () => {
-    try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}?days=${contestRange}&studentId=${studentId}`,{
-        withCredentials:true
-      })
-      console.log(res.data);
-      if(res.status === 200){
-        setcontestdata(res.data)
-      } 
-    } catch (error) {
-      console.log("Something went wrong!!...")
+ const fetchData = async () => {
+  try {
+    if (!studentId || contestRange <= 0) {
+      showError("Invalid request: Missing student ID or days filter.");
+      return;
+    }
+
+    const res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/getStudentStats?days=${contestRange}&studentId=${studentId}`,
+      { withCredentials: true }
+    );
+
+    if (res.status === 200) {
+      setcontestdata(res.data);
+      showSuccess("Student stats loaded successfully!");
+    }
+  } catch (error) {
+    if (error.response) {
+      const { status, data } = error.response;
+      if (status === 400) {
+        showError(data.error || "Invalid request parameters.");
+      } else if (status === 404) {
+        showError("Student not found.");
+      } else {
+        showError(data.error || "Server error occurred.");
+      }
+    } else {
+      showError("Network error. Please try again later.");
     }
   }
+};
+
 
 useEffect(() =>{
   fetchData()
