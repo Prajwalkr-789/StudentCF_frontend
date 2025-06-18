@@ -22,7 +22,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const res = await axios.post('http://localhost:8080/api/addStudent', formData);
+    const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/addStudent`, formData);
 
     if (res.status === 201) {
       showSuccess("Student added successfully!");

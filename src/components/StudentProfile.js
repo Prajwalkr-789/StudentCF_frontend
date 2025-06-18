@@ -36,7 +36,7 @@ export default function StudentProfile() {
   console.log(studentId)
   const fetchData = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/getStudentStats?days=${contestRange}&studentId=${studentId}`,{
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}?days=${contestRange}&studentId=${studentId}`,{
         withCredentials:true
       })
       console.log(res.data);

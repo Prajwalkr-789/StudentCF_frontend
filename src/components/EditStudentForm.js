@@ -16,7 +16,7 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
       return;
     }
     try{
-      const res = await axios.put('http://localhost:8080/api/editStudent', formData);
+      const res = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/editStudent`, formData);
       console.log("Student updated successfully:", res.data);
       if(res.status === 200) {
         setOpenEditForm(false);

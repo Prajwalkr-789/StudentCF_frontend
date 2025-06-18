@@ -60,7 +60,7 @@ const deleteStudent = async (studentId) => {
   if (!confirmDelete) return;
 
   try {
-    const res = await axios.post('http://localhost:8080/api/deleteStudent', {
+    const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/deleteStudent`, {
       studentId,
     });
 

@@ -19,7 +19,7 @@ function ProblemSolving({ studentId }) {
   useEffect(() => {
     const fetchProblemStats = async () => {
       try {
-        const res = await axios.post(`http://localhost:8080/api/getSolvingStats`, {
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/getSolvingStats`, {
           studentId,
           days: problemRange,
         });

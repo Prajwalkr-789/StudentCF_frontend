@@ -1,11 +1,12 @@
 import "./App.css";
 import Student_table from "./components/Student_table";
 import StudentProfile from "./components/StudentProfile";
-import { Moon, Sun } from "lucide-react";
+import {Moon, MoonIcon, Sun, SunIcon } from "lucide-react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { ToastProvider } from "./Contexts/ToastContext";
+import Home from "./components/Home";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -41,17 +42,21 @@ function App() {
       <Router>
         {/* Top-right dark mode toggle */}
         <div className="fixed top-4 right-4 z-50">
-          <button
+               <header className="absolute top-0 right-0 p-6 z-10">
+            <button
             onClick={handledarkmode}
-            className="p-3 rounded-xl bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors shadow-sm"
-          >
-            {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
+              className="w-12 h-12 rounded-full bg-white/20 dark:bg-black/20 backdrop-blur-md border border-white/30 dark:border-gray-700/30 flex items-center justify-center text-2xl hover:bg-white/30 dark:hover:bg-black/30 transition-all duration-300 hover:scale-110 shadow-lg"
+              aria-label="Toggle theme"
+            >
+              {darkMode ? <SunIcon className="text-zinc-200"/>  :<MoonIcon/>}
+            </button>
+          </header>
         </div>
 
         {/* Routes */}
         <Routes>
-          <Route path="/" element={<Student_table />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/table" element={<Student_table />} />
           <Route path="/profile/:studentId" element={<StudentProfile />} />
         </Routes>
       </Router>
