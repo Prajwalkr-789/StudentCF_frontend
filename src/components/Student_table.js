@@ -124,7 +124,7 @@ const deleteStudent = async (studentId) => {
   const avgRating = (Rating / totalStudents).toFixed(2) || 0;
 
   return (
-    <div className={`dark:bg-black p-2 md:p-12`}>
+    <div className={`min-h-screen dark:bg-black p-2 md:p-12`}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
