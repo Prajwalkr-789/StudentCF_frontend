@@ -1,35 +1,59 @@
-import React, { useState } from 'react';
-import { User, Mail, Phone, Code } from 'lucide-react';
-import axios from 'axios';
+import React, { useState } from "react";
+import { User, Mail, Phone, Code } from "lucide-react";
+import axios from "axios";
+import { useToast } from "../Contexts/ToastContext";
 
-export default function AddStudentForm({ setOpenHandleForm , fetchData }) {
+export default function AddStudentForm({ setOpenHandleForm, fetchData }) {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    codeforcesHandle: '',
+    name: "",
+    email: "",
+    phone: "",
+    codeforcesHandle: "",
   });
+
+  const { showSuccess, showError, showInfo } = useToast();
+
 const handleSubmit = async (e) => {
   e.preventDefault();
-  if(!formData.email || !formData.name || !formData.phone || !formData.codeforcesHandle) {
-    console.log("All fields are required");
+
+  if (!formData.email || !formData.name || !formData.phone || !formData.codeforcesHandle) {
+    showInfo("Please fill all fields");
     return;
   }
+
   try {
     const res = await axios.post('http://localhost:8080/api/addStudent', formData);
-    console.log("Student added successfully:", res.data);
-    if(res.status === 200) {
-    setOpenHandleForm(false);
-      fetchData(); 
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      codeforcesHandle: '',
-    });
-  }
+
+    if (res.status === 201) {
+      showSuccess("Student added successfully!");
+      setOpenHandleForm(false);
+      fetchData();
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        codeforcesHandle: '',
+      });
+    } else {
+      showInfo("Unexpected response. Please check your input.");
+    }
   } catch (error) {
     console.error("Error adding student:", error);
+
+    if (error.response) {
+      const { status, data } = error.response;
+
+      if (status === 400 && data.error === "Codeforces handle already exists") {
+        showError("Codeforces handle already exists!");
+      } else if (status === 404 && data.error === "Codeforces handle not found") {
+        showError("Codeforces handle not found!");
+      } else if (status === 500 && data.error === "Internal server error") {
+        showError("Server error, please try again later.");
+      } else {
+        showError(data.error || "Something went wrong.");
+      }
+    }
   }
 };
 
@@ -81,7 +105,9 @@ const handleSubmit = async (e) => {
             placeholder="student@example.com"
             className="w-full px-4 py-2 rounded-lg bg-white/60 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             required
           />
         </div>
@@ -96,7 +122,9 @@ const handleSubmit = async (e) => {
             placeholder="+1 (555) 123-4567"
             className="w-full px-4 py-2 rounded-lg bg-white/60 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
             value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
             required
           />
         </div>
@@ -111,7 +139,9 @@ const handleSubmit = async (e) => {
             placeholder="username"
             className="w-full px-4 py-2 rounded-lg bg-white/60 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
             value={formData.codeforcesHandle}
-            onChange={(e) => setFormData({ ...formData, codeforcesHandle: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, codeforcesHandle: e.target.value })
+            }
             required
           />
         </div>
