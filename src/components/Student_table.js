@@ -11,6 +11,7 @@ import {
   Trophy,
   Target,
   TrendingUp,
+  UploadIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddStudentForm from "./AddStudentForm";
@@ -44,6 +45,28 @@ export default function StudentTable() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handlecsv = async() =>{
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getcsv`, {
+      responseType: 'blob', // Important for file download
+    });
+
+    const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'students.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showSuccess('Student data exported successfully');
+    } catch (error) {
+      showError("Error downloading the file try again")
+    }
+  }
 
 const deleteStudent = async (studentId) => {
   console.log(studentId);
@@ -222,6 +245,16 @@ const deleteStudent = async (studentId) => {
             Add Student
           </button>
         </div>
+        <div className="flex justify-end items-center">
+           <button
+            onClick={handlecsv}
+            className="flex  items-center gap-2 px-6 py-3 dark:bg-zinc-950 hover:from-zinc-200  dark:text-zinc-100 border border-zinc-600 rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+          >
+            <UploadIcon className="h-5 w-5" />
+            Export as csv
+          </button>
+        </div>
+         
 
         {/* Table */}
         <div className="p-4 md:p-10">
