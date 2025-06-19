@@ -6,8 +6,8 @@ A full-stack web app to monitor and visualize students' Codeforces performance �
 
 ## 🔗 GitHub Repositories
 
-- 🖥️ Frontend (This repo): [https://github.com/yourusername/cf-student-tracker-frontend](https://github.com/yourusername/cf-student-tracker-frontend)
-- ⚙️ Backend (Separate repo): [https://github.com/yourusername/cf-student-tracker-backend](https://github.com/yourusername/cf-student-tracker-backend)
+- 🖥️ Frontend (This repo): [https://github.com/Prajwalkr-789/StudentCF_frontend]
+- ⚙️ Backend (Separate repo): [https://github.com/Prajwalkr-789/StudentCF_Backend]
 
 ---
 
