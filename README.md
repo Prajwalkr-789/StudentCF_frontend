@@ -63,4 +63,7 @@ npm run dev
 
 🌐 Live Links
 🔗 Frontend: https://student-cf-frontend.vercel.app
+
+I’m still working on improving my documentation skills. While I focus more on building and delivering functional features, I’m actively learning to document my work better for clearer communication and collaboration.
+
 Documentation : https://drive.google.com/file/d/1JVaNjDacbxyt-bhPGbOjv47fyu1P9Vvm/view
