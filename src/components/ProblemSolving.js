@@ -45,7 +45,6 @@ function ProblemSolving({ studentId }) {
         cacheRef.current[cacheKey] = data;
         setProblemSolvingData(data);
       } catch (err) {
-        console.error("Error fetching problem stats:", err.message);
         showError("Failed to load problem stats. Try again later.");
       }
     };

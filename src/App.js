@@ -40,7 +40,7 @@ function App() {
     <div className="App">
       <Toaster position="top-center" />
       <Router>
-        {/* Top-right dark mode toggle */}
+        
         <div className="fixed top-4 right-4 z-50">
                <header className="absolute top-0 right-0 p-6 z-10">
             <button

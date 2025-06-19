@@ -39,7 +39,6 @@ const handleSubmit = async (e) => {
       showInfo("Unexpected response. Please check your input.");
     }
   } catch (error) {
-    console.error("Error adding student:", error);
 
     if (error.response) {
       const { status, data } = error.response;
@@ -80,7 +79,6 @@ const handleSubmit = async (e) => {
           </button>
         </div>
 
-        {/* Full Name */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <User className="h-4 w-4" /> Full Name
@@ -95,7 +93,6 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* Email */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <Mail className="h-4 w-4" /> Email Address
@@ -112,7 +109,6 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* Phone */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <Phone className="h-4 w-4" /> Phone Number
@@ -129,7 +125,6 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* Handle */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <Code className="h-4 w-4" /> Codeforces Handle
@@ -146,7 +141,7 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* Buttons */}
+        
         <div className="flex justify-end gap-3 pt-4">
           <button
             type="button"

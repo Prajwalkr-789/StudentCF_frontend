@@ -49,7 +49,7 @@ export default function StudentTable() {
   const handlecsv = async() =>{
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getcsv`, {
-      responseType: 'blob', // Important for file download
+      responseType: 'blob', 
     });
 
     const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' });
@@ -69,7 +69,7 @@ export default function StudentTable() {
   }
 
 const deleteStudent = async (studentId) => {
-  console.log(studentId);
+
   if (!studentId) {
     showError("Something went wrong, try again.");
     return;
@@ -145,7 +145,7 @@ const deleteStudent = async (studentId) => {
   return (
     <div className={`min-h-screen dark:bg-black p-3 md:p-12`}>
       <div className="space-y-6">
-        {/* Header */}
+ 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl mt-10  font-bold text-gray-900 dark:text-white">
@@ -157,7 +157,7 @@ const deleteStudent = async (studentId) => {
           </div>
         </div>
 
-        {/* Stats Cards */}
+ 
         <div className="grid grid-cols-1 p-5 md:p-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white dark:bg-zinc-950 p-6 rounded-xl shadow-lg dark:shadow-none dark:border border-zinc-800 dark:border-gray-700">
             <div className="flex items-center justify-between">
@@ -256,7 +256,7 @@ const deleteStudent = async (studentId) => {
         </div>
          
 
-        {/* Table */}
+        
         <div className="p-4 md:p-10">
           <div className="bg-white dark:bg-zinc-950 shadow-lg rounded-xl  border border-gray-200 dark:border-gray-700 overflow-hidden">
             <div className="overflow-x-auto p-4 ">

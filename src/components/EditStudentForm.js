@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { User, Mail, Phone, Code } from 'lucide-react';
 import axios from 'axios';
+import { useToast } from '../Contexts/ToastContext';
 
 export default function EditStudentForm({ setOpenEditForm, student,fetchData }) {
   const [formData, setFormData] = useState(student);
+
+  const {showError , showSuccess} = useToast();
 
   useEffect(() => {
     if (student) setFormData(student);
@@ -12,12 +15,12 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.name || !formData.phone || !formData.codeforcesHandle) {
-      console.log("All fields are required");
+      showError("All fields are required");
       return;
     }
     try{
       const res = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/editStudent`, formData);
-      console.log("Student updated successfully:", res.data);
+      showSuccess("Student updated successfully:");
       if(res.status === 200) {
         setOpenEditForm(false);
         setFormData({
@@ -27,10 +30,11 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
           codeforcesHandle: '',
         });
         fetchData(); 
+
       }
     }
     catch (error) {
-      console.log("Error updating student:");
+      showError("Error updating student:");
     }
   };
 
@@ -42,7 +46,6 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
         onSubmit={handleSubmit}
         className="w-[95%] sm:w-[400px] p-6 rounded-2xl shadow-2xl border border-white/10 bg-white/90 dark:bg-zinc-900/80 text-black dark:text-white space-y-5 backdrop-blur-md"
       >
-        {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-bold flex items-center gap-2">
             <User className="h-5 w-5 text-blue-500 dark:text-blue-400" />
@@ -57,7 +60,6 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
           </button>
         </div>
 
-        {/* Full Name */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <User className="h-4 w-4" /> Full Name
@@ -72,7 +74,6 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
           />
         </div>
 
-        {/* Email */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <Mail className="h-4 w-4" /> Email Address
@@ -87,7 +88,6 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
           />
         </div>
 
-        {/* Phone */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <Phone className="h-4 w-4" /> Phone Number
@@ -102,7 +102,6 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
           />
         </div>
 
-        {/* Codeforces Handle */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-2">
             <Code className="h-4 w-4" /> Codeforces Handle
@@ -118,7 +117,6 @@ export default function EditStudentForm({ setOpenEditForm, student,fetchData }) 
           />
         </div>
 
-        {/* Action Buttons */}
         <div className="flex justify-end gap-3 pt-4">
           <button
             type="button"

@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import {useToast} from '../Contexts/ToastContext'
 
 function Home() {
+
+  const fetch = async () =>{
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/`)
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(() =>{
+    fetch()
+  },[])
+
   return (
     <div>
        <div className="min-h-screen dark:bg-black transition-all duration-500">
 
       <main className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative">
-        {/* <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300/30 dark:bg-purple-600/20 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300/30 dark:bg-blue-600/20 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-200/20 dark:bg-indigo-500/10 rounded-full blur-3xl"></div>
-        </div> */}
 
         <div className="relative z-10 text-center max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-6 leading-tight">

@@ -33,7 +33,7 @@ const {showSuccess,showError} = useToast()
 
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/getStudentStats?days=${contestRange}&studentId=${studentId}`,
-      // { withCredentials: true }
+      
     );
 
     if (res.status === 200) {
@@ -101,7 +101,7 @@ useEffect(() =>{
   return (
     <div className={`min-h-screen transition-colors duration-300 dark:bg-black  p-1 md:p-12`}>
       <div className="container mx-auto p-6 space-y-8">
-        {/* Header */}
+        
   <div className="py-2 flex items-center flex-col">
   <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
     STUDENT PROFILE
