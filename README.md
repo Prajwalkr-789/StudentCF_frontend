@@ -64,6 +64,4 @@ npm run dev
 🌐 Live Links
 🔗 Frontend: https://student-cf-frontend.vercel.app
 
-🔗 Backend: https://studentcf-backend.onrender.com
-
 🎥 Demo Video: https://youtu.be/demo-link
