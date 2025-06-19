@@ -26,7 +26,7 @@ A full-stack web app to monitor and visualize students' Codeforces performance â
 | Area       | Tech Stack                    |
 |------------|-------------------------------|
 | Frontend   | React, Tailwind CSS, Recharts |
-| Backend    | Node.js, Express, MongoDB     |
+| Backend    | Node.js, Express, MongoDB , node-cron    |
 | Data Fetch | Axios                         |
 | Charts     | Recharts                      |
 
