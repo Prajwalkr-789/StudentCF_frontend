@@ -7,8 +7,6 @@ import {
   Edit3,
   Trash2,
   Eye,
-  Sun,
-  Moon,
   Users,
   Trophy,
   Target,
@@ -23,25 +21,23 @@ import { useToast } from "../Contexts/ToastContext";
 
 export default function StudentTable() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
   const [openAddForm, setOpenAddForm] = useState(false);
   const [openEditForm, setOpenEditForm] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [students, setstudents] = useState([]);
 
-  const {showError , showSuccess , showInfo} = useToast()
+  const {showError , showSuccess } = useToast()
 
   const fetchData = async () => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/getAllStudentsShortInfo`
       );
-      if (res.status == 200) {
+      if (res.status === 200) {
         setstudents(res.data);
-        console.log(res);
       }
     } catch {
-      console.log("Something went wrong");
+      showError("Something went wrong Please try again")
     }
   };
 
@@ -124,12 +120,12 @@ const deleteStudent = async (studentId) => {
   const avgRating = (Rating / totalStudents).toFixed(2) || 0;
 
   return (
-    <div className={`min-h-screen dark:bg-black p-2 md:p-12`}>
+    <div className={`min-h-screen dark:bg-black p-3 md:p-12`}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl md:text-3xl mt-10  font-bold text-gray-900 dark:text-white">
               Student Management
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
@@ -139,7 +135,7 @@ const deleteStudent = async (studentId) => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 p-5 md:p-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white dark:bg-zinc-950 p-6 rounded-xl shadow-lg dark:shadow-none dark:border border-zinc-800 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <div>
@@ -205,9 +201,8 @@ const deleteStudent = async (studentId) => {
           </div>
         </div>
 
-        {/* Search and Add Button */}
-        <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-          <div className="relative flex-1 max-w-md">
+        <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between ">
+          <div className="relative flex-1 max-w-md ">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
@@ -221,7 +216,7 @@ const deleteStudent = async (studentId) => {
             onClick={() => {
               setOpenAddForm(true);
             }}
-            className="flex items-center gap-2 px-6 py-3 dark:bg-zinc-950 hover:from-zinc-200  dark:text-zinc-100 border border-zinc-600 rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+            className="flex  items-center gap-2 px-6 py-3 dark:bg-zinc-950 hover:from-zinc-200  dark:text-zinc-100 border border-zinc-600 rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
           >
             <Plus className="h-5 w-5" />
             Add Student

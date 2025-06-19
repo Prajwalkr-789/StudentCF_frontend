@@ -1,7 +1,7 @@
 import "./App.css";
 import Student_table from "./components/Student_table";
 import StudentProfile from "./components/StudentProfile";
-import {Moon, MoonIcon, Sun, SunIcon } from "lucide-react";
+import {MoonIcon, SunIcon } from "lucide-react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";

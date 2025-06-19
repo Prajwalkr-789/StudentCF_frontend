@@ -1,71 +1,69 @@
-# Getting Started with Create React App
+# 📘 Codeforces Student Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web app to monitor and visualize students' Codeforces performance — built for mentors, instructors, and coding communities to track progress in contests and problem-solving.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔗 GitHub Repositories
 
-### `npm start`
+- 🖥️ Frontend (This repo): [https://github.com/yourusername/cf-student-tracker-frontend](https://github.com/yourusername/cf-student-tracker-frontend)
+- ⚙️ Backend (Separate repo): [https://github.com/yourusername/cf-student-tracker-backend](https://github.com/yourusername/cf-student-tracker-backend)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📦 Product Overview
 
-### `npm test`
+- 📈 Tracks and displays Codeforces contest performance
+- 🧠 Shows problem-solving stats with filters (7, 30, 90 days)
+- 📊 Rating distribution bar chart and submission heatmap
+- 🔄 Real-time sync with Codeforces API via backend
+- 🌙 Supports responsive UI with light/dark mode toggle
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🔌 Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Area       | Tech Stack                    |
+|------------|-------------------------------|
+| Frontend   | React, Tailwind CSS, Recharts |
+| Backend    | Node.js, Express, MongoDB     |
+| Data Fetch | Axios                         |
+| Charts     | Recharts                      |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧾 Setup Instructions
 
-### `npm run eject`
+### 🔧 Frontend Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Clone the frontend repository
+git clone https://github.com/Prajwalkr-789/StudentCF_frontend
+cd cf-student-tracker-frontend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Install dependencies
+npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Add a `.env` file with:
+REACT_APP_BACKEND_URL=http://localhost:8080
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Start frontend dev server
+npm run start
 
-## Learn More
+### 🔧 Backend Setup
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Clone the frontend repository
+git clone https://github.com/Prajwalkr-789/StudentCF_Backend
+cd cf-student-tracker-backend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Install dependencies
+npm install
 
-### Code Splitting
+# Start frontend dev server
+npm run dev
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+🌐 Live Links
+🔗 Frontend: https://student-cf-frontend.vercel.app
 
-### Analyzing the Bundle Size
+🔗 Backend: https://studentcf-backend.onrender.com
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# StudentCF_frontend
+🎥 Demo Video: https://youtu.be/demo-link

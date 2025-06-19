@@ -1,42 +1,23 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar, Tooltip } from "recharts"
-import { Trophy, Target, TrendingUp, Calendar, Award, Brain, Sun, Moon } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer,  Tooltip } from "recharts"
+import { Trophy, Target, TrendingUp, Calendar, Award } from "lucide-react"
 import axios from 'axios'
 import { useParams } from "react-router-dom"
 import ProblemSolving from "./ProblemSolving"
 import { useToast } from "../Contexts/ToastContext"
 
 
-const solvedProblems = [
-  { date: "2025-06-01", rating: 800 },
-  { date: "2025-06-02", rating: 1000 },
-  { date: "2025-06-03", rating: 1200 },
-  { date: "2025-06-04", rating: 1600 },
-  { date: "2025-06-05", rating: 800 },
-  { date: "2025-06-06", rating: 1400 },
-  { date: "2025-06-07", rating: 900 },
-  { date: "2025-06-08", rating: 1100 },
-  { date: "2025-06-09", rating: 1300 },
-  { date: "2025-06-10", rating: 1500 },
-  { date: "2025-06-11", rating: 1700 },
-  { date: "2025-06-12", rating: 1200 },
-  { date: "2025-06-13", rating: 1800 },
-  { date: "2025-06-14", rating: 1000 },
-]
-
 
 export default function StudentProfile() {
   const [contestRange, setContestRange] = useState(30)
-  const [problemRange, setProblemRange] = useState(30)
   const [contestdata , setcontestdata ] = useState(null)
-  const [dateselected , setdateselected] = useState(30)
 
-const {showSuccess,showError,showInfo} = useToast()
+  const cacheRef = useRef({}); 
+const {showSuccess,showError} = useToast()
 
   const {studentId} = useParams()
-  console.log(studentId)
  const fetchData = async () => {
   try {
     if (!studentId || contestRange <= 0) {
@@ -44,13 +25,20 @@ const {showSuccess,showError,showInfo} = useToast()
       return;
     }
 
+      const cacheKey = `${studentId}_${contestRange}`;
+    if (cacheRef.current[cacheKey]) {
+      setcontestdata(cacheRef.current[cacheKey]);
+      return;
+    }
+
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/getStudentStats?days=${contestRange}&studentId=${studentId}`,
-      { withCredentials: true }
+      // { withCredentials: true }
     );
 
     if (res.status === 200) {
       setcontestdata(res.data);
+       cacheRef.current[cacheKey] = res.data;
       showSuccess("Student stats loaded successfully!");
     }
   } catch (error) {
@@ -69,32 +57,11 @@ const {showSuccess,showError,showInfo} = useToast()
   }
 };
 
-
 useEffect(() =>{
   fetchData()
 },[contestRange])
 
-  const filteredSubs = solvedProblems.filter((sub) => {
-    const daysAgo = (Date.now() - new Date(sub.date).getTime()) / 86400000
-    return daysAgo <= problemRange
-  })
 
-  const buckets= {}
-  filteredSubs.forEach((sub) => {
-    const rating = sub.rating || 0
-    const bucket = Math.floor(rating / 400) * 400
-    buckets[bucket] = (buckets[bucket] || 0) + 1
-  })
-
-  const barData = Object.entries(buckets).map(([bucket, count]) => ({
-    bucket: `${bucket}-${+bucket + 399}`,
-    count,
-  }))
-
-  const topProblem = filteredSubs.reduce((a, b) => (b.rating > (a?.rating || 0) ? b : a), {})
-  const avgRating = Math.round(filteredSubs.reduce((acc, cur) => acc + (cur.rating || 0), 0) / filteredSubs.length || 0)
-
-  
   const getRatingColor = (rating) => {
     if (rating >= 2400) return "text-red-500"
     if (rating >= 2100) return "text-orange-500"
@@ -120,9 +87,7 @@ useEffect(() =>{
   contestHistoryGraph = [],
   currentRating = 0,
   handle = '',
-  maxRating = 0,
   problemsSolved = 0,
-  unsolvedCount = 0
 } = contestdata || {};
 
 
@@ -164,7 +129,6 @@ useEffect(() =>{
         <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">Contest History</h2>
       </div>
 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-  {/* Current Rating */}
   <div className="p-6 rounded-xl shadow-lg bg-white dark:bg-zinc-950 dark:border border-zinc-700">
     <div className="flex items-center justify-between mb-4">
       <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Current Rating</h3>
@@ -176,7 +140,6 @@ useEffect(() =>{
     </p>
   </div>
 
-  {/* Problems Solved */}
   <div className="p-6 rounded-xl shadow-lg bg-white dark:bg-zinc-950 dark:border border-zinc-700">
     <div className="flex items-center justify-between mb-4">
       <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Problems Solved</h3>
@@ -190,7 +153,6 @@ useEffect(() =>{
     </p>
   </div>
 
-  {/* Average Rating */}
   <div className="p-6 rounded-xl shadow-lg bg-white dark:bg-zinc-950 dark:border border-zinc-700">
     <div className="flex items-center justify-between mb-4">
       <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Average Rating</h3>
@@ -200,25 +162,22 @@ useEffect(() =>{
     <p className="text-xs mt-1 text-gray-500 dark:text-gray-500">Problem difficulty</p>
   </div>
 
-  {/* Daily Average */}
   <div className="p-6 rounded-xl shadow-lg bg-white dark:bg-zinc-950 dark:border border-zinc-700">
     <div className="flex items-center justify-between mb-4">
       <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Daily Average</h3>
       <Calendar className="h-5 w-5 text-gray-400" />
     </div>
     <div className="text-3xl font-bold text-gray-900 dark:text-white">
-      {(filteredSubs.length / problemRange).toFixed(1)}
+      {(problemsSolved / contestRange).toFixed(1)}
     </div>
     <p className="text-xs mt-1 text-gray-500 dark:text-gray-500">Problems per day</p>
   </div>
 </div>
 
-        {/* Contest History Section */}
-<div className="p-4 md:p-8 rounded-xl shadow-lg bg-white dark:bg-zinc-950 dark:border border-zinc-700">
-  {/* Header */}
+<div className="p-3 md:p-8 rounded-xl shadow-lg bg-white dark:bg-zinc-950 dark:border border-zinc-700">
   <div className="flex flex-col md:flex-row space-x-2 space-y-5 items-center justify-between mb-6">
     <div>
-      <h2 className="text-2xl font-bold flex items-center gap-3 text-gray-900 dark:text-white">
+      <h2 className="text-2xl font-bold flex items-center mt-2 gap-3 text-gray-900 dark:text-white">
         <Award className="h-6 w-6" />
         Contest History
       </h2>
@@ -241,7 +200,6 @@ useEffect(() =>{
     </div>
   </div>
 
-  {/* Chart */}
 <div className="h-80 mb-8 flex items-center justify-center">
   {contestHistoryGraph && contestHistoryGraph.length > 0 ? (
     <ResponsiveContainer width="100%" height="100%">
@@ -288,7 +246,6 @@ useEffect(() =>{
 </div>
 
 
-  {/* Table */}
   <div className="overflow-x-auto">
     <table className="w-full">
       <thead>
